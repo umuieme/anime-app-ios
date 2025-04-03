@@ -10,11 +10,14 @@ import Foundation
 
 class NetworkManager {
     
+    static let shared = NetworkManager();
     
-    func fetchHomePage(){
+    var homeDataFetchDelegate: HomeDataFetchDelegate?;
+    
+    func fetchHomePage() {
         
         let url = URL(string: Api.BASE_URL + Api.HOME)!;
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        let session = URLSession.shared.dataTask(with: url) { data, response, error in
             
             if error != nil {
                 print("error")
@@ -24,6 +27,7 @@ class NetworkManager {
             
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
                 print("Invaid response")
+                self.homeDataFetchDelegate?.didFailWithError(error: "Something went wrong");
                 return;
             }
             
@@ -33,14 +37,18 @@ class NetworkManager {
                     let responseData = try decoder.decode(BaseWrapper.self, from: data)
                     if responseData.success {
                         print(responseData.results)
+                        self.homeDataFetchDelegate?.didFetchHomeData(homeData: responseData.results);
                     }
-                } catch {
-                    
+                } catch let error {
+                    self.homeDataFetchDelegate?.didFailWithError(error: "Something went wrong");
+                    print(error)
                 }
             }
             
             
         }
+        
+        session.resume();
         
     }
     

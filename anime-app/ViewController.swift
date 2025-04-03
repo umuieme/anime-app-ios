@@ -7,26 +7,33 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource {
+class ViewController: UIViewController, HomeDataFetchDelegate {
     
 
     @IBOutlet weak var trending: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        NetworkManager.shared.homeDataFetchDelegate = self
+        NetworkManager.shared.fetchHomePage();
         
-        trending.dataSource = self
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+    @IBAction func onFetchPressed(_ sender: Any) {
+        NetworkManager.shared.fetchHomePage();
+
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
+    func didFetchHomeData(homeData: HomeDataModel) {
+        print(homeData)
+    }
+    
+    func didFailWithError(error: String) {
         
     }
+    
+    
+    
     
 }
 

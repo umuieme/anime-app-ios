@@ -8,24 +8,24 @@
 class BaseWrapper : Codable{
     
     let success: Bool;
-    let results: HomeAnimeRespnseModel;
+    let results: HomeDataModel;
     
-    init(success: Bool, results: HomeAnimeRespnseModel) {
+    init(success: Bool, results: HomeDataModel) {
         self.success = success
         self.results = results
     }
     
 }
 
-class HomeAnimeRespnseModel : Codable {
+class HomeDataModel : Codable {
     
     let spotlights : [AnimeModel]
-    let trendings: [AnimeModel]
+    let trending: [AnimeModel]
     let topAiring: [AnimeModel]
     
-    init(spotlights: [AnimeModel], trendings: [AnimeModel], topAiring: [AnimeModel]) {
+    init(spotlights: [AnimeModel], trending: [AnimeModel], topAiring: [AnimeModel]) {
         self.spotlights = spotlights
-        self.trendings = trendings
+        self.trending = trending
         self.topAiring = topAiring
     }
 }
