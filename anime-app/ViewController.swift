@@ -12,7 +12,8 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
     @IBOutlet weak var trendingCollectionView: UICollectionView!
     var homeData : HomeDataModel?
     
- 
+    @IBOutlet weak var trendingPageController: UIPageControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,6 +41,7 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
     func didFetchHomeData(homeData: HomeDataModel) {
         print(homeData)
         self.homeData = homeData
+        trendingPageController.numberOfPages = homeData.spotlights.count
         trendingCollectionView.reloadData()
     }
     
@@ -77,13 +79,11 @@ extension ViewController: UIScrollViewDelegate, UICollectionViewDelegate {
         
         let roundedIndex = round(index)
         
+        
         offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: scrollView.contentInset.top)
-        print(cellWidthIncludingSpacing)
-        print(roundedIndex);
-        print(offset);
-        print(scrollView.contentInset.left)
         targetContentOffset.pointee = offset
-//        targetContentOffset.pointee = CGPoint(x: 304.5, y: scrollView.contentInset.top)
+        
+        trendingPageController.currentPage = Int(index)
         
     }
     

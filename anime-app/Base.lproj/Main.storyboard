@@ -24,7 +24,7 @@
                                         <rect key="frame" x="0.0" y="-103" width="393" height="852"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7N2-Ke-1B3">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="360"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="385.66666666666669"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zGa-d0-fVa">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="360"/>
@@ -88,10 +88,15 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="mbc-TD-dLT">
+                                                        <rect key="frame" x="0.0" y="360" width="393" height="25.666666666666686"/>
+                                                    </pageControl>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                                 <constraints>
                                                     <constraint firstItem="zGa-d0-fVa" firstAttribute="leading" secondItem="7N2-Ke-1B3" secondAttribute="leading" id="44h-eP-CaR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="mbc-TD-dLT" secondAttribute="trailing" id="QKs-dH-e7c"/>
+                                                    <constraint firstItem="mbc-TD-dLT" firstAttribute="leading" secondItem="7N2-Ke-1B3" secondAttribute="leading" id="SRM-ql-UIZ"/>
                                                     <constraint firstAttribute="trailing" secondItem="zGa-d0-fVa" secondAttribute="trailing" id="URd-yk-o9U"/>
                                                     <constraint firstItem="zGa-d0-fVa" firstAttribute="top" secondItem="7N2-Ke-1B3" secondAttribute="top" id="h0u-tB-ihb"/>
                                                 </constraints>
@@ -129,6 +134,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="trendingCollectionView" destination="zGa-d0-fVa" id="VNh-vL-cRp"/>
+                        <outlet property="trendingPageController" destination="mbc-TD-dLT" id="0Kk-0j-RcA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
