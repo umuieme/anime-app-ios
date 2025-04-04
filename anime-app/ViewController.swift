@@ -12,24 +12,18 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
     @IBOutlet weak var trendingCollectionView: UICollectionView!
     var homeData : HomeDataModel?
     
-    let cellScale: CGFloat = 0.8
  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         let screenSize: CGSize = UIScreen.main.bounds.size
-        let cellWidth = floor(screenSize.width * cellScale)
-        let cellHeight = CGFloat(240)
-        
-        let insetX = (view.bounds.size.width - cellWidth) / 2.0
+        let cellWidth = floor(screenSize.width)
+        let cellHeight = CGFloat(360)
         
         let layout = trendingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-        trendingCollectionView.contentInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
-//        trendingCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
-        print(insetX)
         
         trendingCollectionView.delegate = self
         trendingCollectionView.dataSource = self
@@ -88,8 +82,8 @@ extension ViewController: UIScrollViewDelegate, UICollectionViewDelegate {
         print(roundedIndex);
         print(offset);
         print(scrollView.contentInset.left)
-//        targetContentOffset.pointee = offset
-        targetContentOffset.pointee = CGPoint(x: 304.5, y: scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
+//        targetContentOffset.pointee = CGPoint(x: 304.5, y: scrollView.contentInset.top)
         
     }
     
