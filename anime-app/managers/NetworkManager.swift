@@ -22,12 +22,17 @@ class NetworkManager {
             if error != nil {
                 print("error")
                 print(error!)
+                DispatchQueue.main.async {
+                    self.homeDataFetchDelegate?.didFailWithError(error: error?.localizedDescription ?? "Something went wrong");
+                }
                 return;
             }
             
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
                 print("Invaid response")
-                self.homeDataFetchDelegate?.didFailWithError(error: "Something went wrong");
+                DispatchQueue.main.async {
+                    self.homeDataFetchDelegate?.didFailWithError(error: "Something went wrong");
+                }
                 return;
             }
             
@@ -36,11 +41,14 @@ class NetworkManager {
                 do {
                     let responseData = try decoder.decode(BaseWrapper.self, from: data)
                     if responseData.success {
-                        print(responseData.results)
-                        self.homeDataFetchDelegate?.didFetchHomeData(homeData: responseData.results);
+                        DispatchQueue.main.async {
+                            self.homeDataFetchDelegate?.didFetchHomeData(homeData: responseData.results);
+                        }
                     }
                 } catch let error {
-                    self.homeDataFetchDelegate?.didFailWithError(error: "Something went wrong");
+                    DispatchQueue.main.async {
+                        self.homeDataFetchDelegate?.didFailWithError(error: "Something went wrong");
+                    }
                     print(error)
                 }
             }
