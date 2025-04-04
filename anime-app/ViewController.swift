@@ -45,6 +45,9 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         trendingCollectionView.reloadData()
     }
     
+    @IBAction func onTopAiringViewAll(_ sender: Any) {
+        print("ontaopairing clicked")
+    }
     func didFailWithError(error: String) {
         print(error)
     }
