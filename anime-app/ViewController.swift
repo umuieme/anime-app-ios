@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController, HomeDataFetchDelegate {
     
     @IBOutlet weak var trendingCollectionView: UICollectionView!
+    
+    @IBOutlet weak var topAiringCollectionView: UICollectionView!
     var homeData : HomeDataModel?
     
     @IBOutlet weak var trendingPageController: UIPageControl!
@@ -25,9 +27,16 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         let layout = trendingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
 
+        let topAiringlayout = topAiringCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        topAiringlayout.itemSize = CGSize(width: CGFloat(cellWidth*0.5), height: CGFloat(240))
+
         
         trendingCollectionView.delegate = self
         trendingCollectionView.dataSource = self
+        
+        topAiringCollectionView.delegate = self
+        topAiringCollectionView.dataSource = self
+        
         NetworkManager.shared.homeDataFetchDelegate = self
         NetworkManager.shared.fetchHomePage();
         
@@ -43,8 +52,12 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         self.homeData = homeData
         trendingPageController.numberOfPages = homeData.spotlights.count
         trendingCollectionView.reloadData()
+        topAiringCollectionView.reloadData()
     }
     
+    @IBAction func onTopAiringViewAll(_ sender: Any) {
+        print("ontaopairing clicked")
+    }
     func didFailWithError(error: String) {
         print(error)
     }
@@ -58,32 +71,48 @@ extension ViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return homeData?.spotlights.count ?? 0
+        if(collectionView == trendingCollectionView){
+            return homeData?.spotlights.count ?? 0
+        } else {
+            return homeData?.trending.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellView =  collectionView.dequeueReusableCell(withReuseIdentifier: "trendingCellView", for: indexPath) as! TrendingCollectionViewCell
-        cellView.setData(model: homeData!.spotlights[indexPath.row])
-        return cellView;
+        if(collectionView == trendingCollectionView){
+            
+            let cellView =  collectionView.dequeueReusableCell(withReuseIdentifier: "trendingCellView", for: indexPath) as! TrendingCollectionViewCell
+            cellView.setData(model: homeData!.spotlights[indexPath.row])
+            return cellView;
+        } else if(collectionView == topAiringCollectionView){
+            let cellVioew = collectionView.dequeueReusableCell(withReuseIdentifier: "topAiringCellView", for: indexPath) as! TopAiringViewCell
+            cellVioew.setData(anime: homeData!.topAiring[indexPath.row])
+            return cellVioew;
+        }
+        
+        return UICollectionViewCell()
     }
 }
 
 extension ViewController: UIScrollViewDelegate, UICollectionViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let layout = self.trendingCollectionView?.collectionViewLayout as! UICollectionViewFlowLayout
-        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
         
-        var offset = targetContentOffset.pointee
-        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
-        
-        let roundedIndex = round(index)
-        
-        
-        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: scrollView.contentInset.top)
-        targetContentOffset.pointee = offset
-        
-        trendingPageController.currentPage = Int(index)
+        if(scrollView == trendingCollectionView){
+            let layout = self.trendingCollectionView?.collectionViewLayout as! UICollectionViewFlowLayout
+            let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+            
+            var offset = targetContentOffset.pointee
+            let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+            
+            let roundedIndex = round(index)
+            
+            
+            offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: scrollView.contentInset.top)
+            targetContentOffset.pointee = offset
+            
+            trendingPageController.currentPage = Int(index)
+        }
         
     }
     
