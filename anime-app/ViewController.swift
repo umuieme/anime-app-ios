@@ -132,7 +132,7 @@ extension ViewController: UIScrollViewDelegate, UICollectionViewDelegate {
         if collectionView == spotLightCollectionView {
             selectedAnime = homeData?.spotlights[indexPath.row]
         } else if collectionView == topAiringCollectionView {
-            selectedAnime = homeData?.spotlights[indexPath.row]
+            selectedAnime = homeData?.topAiring[indexPath.row]
         }
         performSegue(withIdentifier: "showAnimeDetail", sender: collectionView)
     }
