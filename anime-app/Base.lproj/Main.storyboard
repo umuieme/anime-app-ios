@@ -289,15 +289,18 @@
                                                 <rect key="frame" x="16" y="328" width="361" height="34.333333333333314"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="One piece" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35x-lT-7Is">
-                                                        <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="34.333333333333336"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="312.66666666666669" height="34.333333333333336"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8T-QK-hQu">
-                                                        <rect key="frame" x="314.66666666666669" y="0.0" width="46.333333333333314" height="34.333333333333336"/>
+                                                        <rect key="frame" x="312.66666666666669" y="0.0" width="48.333333333333314" height="34.333333333333336"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="onFavoriteClicked:" destination="1GW-vP-rfm" eventType="touchUpInside" id="D32-1x-7AG"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -393,8 +396,8 @@
     </scenes>
     <resources>
         <image name="arrowshape.right" catalog="system" width="128" height="104"/>
-        <image name="bookmark" catalog="system" width="110" height="128"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>
         <image name="test-image" width="900" height="506"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
