@@ -17,8 +17,11 @@ class NetworkManager {
     func fetchHomePage() {
         
         let url = URL(string: Api.BASE_URL + Api.HOME)!;
+        print(url)
         let session = URLSession.shared.dataTask(with: url) { data, response, error in
-            
+            print(error)
+            print(response)
+            print(data)
             if error != nil {
                 print("error")
                 print(error!)
