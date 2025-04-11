@@ -18,20 +18,13 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
     
     var selectedAnime : AnimeModel?
     
+    var currentIndex = 0;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        let screenSize: CGSize = UIScreen.main.bounds.size
-        let cellWidth = floor(screenSize.width)
-        let cellHeight = CGFloat(360)
-        
-        let layout = spotLightCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
 
-        let topAiringlayout = topAiringCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        topAiringlayout.itemSize = CGSize(width: CGFloat(cellWidth*0.5), height: CGFloat(240))
-
+        applyCollectionViewItemBasedOnSize()
         
         spotLightCollectionView.delegate = self
         spotLightCollectionView.dataSource = self
@@ -42,6 +35,24 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         NetworkManager.shared.homeDataFetchDelegate = self
         NetworkManager.shared.fetchHomePage();
         
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        applyCollectionViewItemBasedOnSize()
+    }
+    
+    func applyCollectionViewItemBasedOnSize()  {
+        let size: CGSize = UIScreen.main.bounds.size
+
+        let cellWidth = floor(size.width)
+        let cellHeight = CGFloat(360)
+        
+        let layout = spotLightCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+
+        let topAiringlayout = topAiringCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        topAiringlayout.itemSize = CGSize(width: CGFloat(cellWidth*0.5), height: CGFloat(240))
+
     }
 
     @IBAction func onFetchPressed(_ sender: Any) {
