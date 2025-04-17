@@ -15,6 +15,7 @@ class TestViewController: UIViewController, HomeDataFetchDelegate {
     @IBOutlet weak var topAiringCollectionView: UICollectionView!
 
     var homeData : HomeDataModel?
+    var selectedAnime : AnimeModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,14 @@ class TestViewController: UIViewController, HomeDataFetchDelegate {
 
     func didFailWithError(error: String) {
         print(error)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showAnimeDetail", let selectedAnime = selectedAnime {
+            if let destinationVC = segue.destination as? AnimeDetailViewController {
+                destinationVC.animeModel = selectedAnime
+            }
+        }
     }
     
 }
@@ -114,14 +123,14 @@ extension TestViewController: UIScrollViewDelegate, UICollectionViewDelegate {
         
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView == spotLightCollectionView {
-//            selectedAnime = homeData?.spotlights[indexPath.row]
-//        } else if collectionView == topAiringCollectionView {
-//            selectedAnime = homeData?.topAiring[indexPath.row]
-//        }
-//        performSegue(withIdentifier: "showAnimeDetail", sender: collectionView)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == spotLightCollectionView {
+            selectedAnime = homeData?.spotlights[indexPath.row]
+        } else if collectionView == topAiringCollectionView {
+            selectedAnime = homeData?.topAiring[indexPath.row]
+        }
+        performSegue(withIdentifier: "showAnimeDetail", sender: collectionView)
+    }
     
 }
 

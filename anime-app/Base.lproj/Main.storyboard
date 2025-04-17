@@ -214,7 +214,6 @@
                         <outlet property="spotLightCollectionView" destination="zGa-d0-fVa" id="VNh-vL-cRp"/>
                         <outlet property="spotLightPageController" destination="mbc-TD-dLT" id="0Kk-0j-RcA"/>
                         <outlet property="topAiringCollectionView" destination="iDi-Kg-ED1" id="zwb-Qt-9O0"/>
-                        <segue destination="1GW-vP-rfm" kind="show" identifier="showAnimeDetail" id="Pfg-kI-bD7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -347,6 +346,7 @@
                             <constraint firstItem="Vwh-F2-l1q" firstAttribute="leading" secondItem="mlU-QU-lev" secondAttribute="leading" id="wGQ-wK-UIn"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="1dh-dE-88a"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                     </userDefinedRuntimeAttributes>
@@ -363,7 +363,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RP8-u5-h1P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2061.8320610687024" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="5836" y="67"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="8lg-8A-yb5">
@@ -569,10 +569,8 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="linkColor"/>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.082811416649999997" green="1" blue="0.62795133489999999" alpha="0.95644161400000005" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="iHd-bL-1Ob" firstAttribute="trailing" secondItem="I3J-Bv-Gfe" secondAttribute="trailing" constant="393" id="dPK-5H-IDn"/>
                                     <constraint firstItem="iHd-bL-1Ob" firstAttribute="bottom" secondItem="I3J-Bv-Gfe" secondAttribute="bottom" id="hUy-de-aXm"/>
@@ -599,11 +597,12 @@
                         <outlet property="spotLightCollectionView" destination="4Qn-UP-2W4" id="YPi-bZ-AMA"/>
                         <outlet property="spotLightPageController" destination="FgN-fQ-ur6" id="FyC-eS-wCJ"/>
                         <outlet property="topAiringCollectionView" destination="rPb-2D-4AO" id="LN8-8f-bn8"/>
+                        <segue destination="1GW-vP-rfm" kind="show" identifier="showAnimeDetail" id="xWr-At-DZw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Oh-nx-YmN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4426.7175572519081" y="66.901408450704224"/>
+            <point key="canvasLocation" x="4622" y="67"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AtH-Bn-OJF">
