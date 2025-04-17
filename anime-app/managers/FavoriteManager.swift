@@ -14,7 +14,6 @@ class FavoriteManager {
     let context = (UIApplication.shared.delegate as! AppDelegate)
         .persistentContainer.viewContext
 
-    var favoriteAnimeList: [String: FavoriteAnime] = [:]
 
     private func saveContext() {
         if context.hasChanges {
@@ -29,16 +28,14 @@ class FavoriteManager {
         }
     }
 
-    func fetchFavoriteData() {
+    func fetchFavoriteData() -> [FavoriteAnime] {
         do {
             let favoriteAnimeList = try context.fetch(
                 FavoriteAnime.fetchRequest())
-            for item in favoriteAnimeList {
-                print(
-                    "Saved Anime: \(item.id ?? "nil") - \(item.title ?? "nil")")
-            }
+            return favoriteAnimeList;
+            
         } catch {
-
+            return [];
         }
     }
 
@@ -69,13 +66,9 @@ class FavoriteManager {
     }
 
     func getFavoriteAnimeById(id: String) -> FavoriteAnime? {
-        fetchFavoriteData()
         let fetchRequest = FavoriteAnime.fetchRequest()
-        
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
-
-//        fetchRequest.fetchLimit = 1
-
+        
         do {
             let favoriteAnimeList: [FavoriteAnime] = try context.fetch(
                 fetchRequest)
