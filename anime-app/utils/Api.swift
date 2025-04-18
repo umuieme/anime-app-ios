@@ -9,4 +9,5 @@
 class Api {
     static let BASE_URL = "https://anime-api-tan-five.vercel.app";
     static let HOME = "/api";
+    static let ANIME_DETAIL = "/api/info?id="
 }
