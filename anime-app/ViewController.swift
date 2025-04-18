@@ -1,26 +1,26 @@
 //
-//  ViewController.swift
+//  TestViewController.swift
 //  anime-app
 //
-//  Created by Umesh Basnet on 28/03/2025.
+//  Created by Umesh Basnet on 17/04/2025.
 //
 
 import UIKit
 
 class ViewController: UIViewController, HomeDataFetchDelegate {
-    
+
+    @IBOutlet weak var containerScrollView: UIScrollView!
     @IBOutlet weak var spotLightCollectionView: UICollectionView!
-    
-    @IBOutlet weak var topAiringCollectionView: UICollectionView!
-    var homeData : HomeDataModel?
-    
     @IBOutlet weak var spotLightPageController: UIPageControl!
-    
+    @IBOutlet weak var topAiringCollectionView: UICollectionView!
+
+    var homeData : HomeDataModel?
     var selectedAnime : AnimeModel?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        containerScrollView.contentInsetAdjustmentBehavior = .never
         
         let screenSize: CGSize = UIScreen.main.bounds.size
         let cellWidth = floor(screenSize.width)
@@ -29,9 +29,7 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         let layout = spotLightCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
 
-        let topAiringlayout = topAiringCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        topAiringlayout.itemSize = CGSize(width: CGFloat(cellWidth*0.5), height: CGFloat(240))
-
+        
         
         spotLightCollectionView.delegate = self
         spotLightCollectionView.dataSource = self
@@ -41,14 +39,9 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         
         NetworkManager.shared.homeDataFetchDelegate = self
         NetworkManager.shared.fetchHomePage();
-        
-    }
-
-    @IBAction func onFetchPressed(_ sender: Any) {
-        NetworkManager.shared.fetchHomePage();
-
     }
     
+
     func didFetchHomeData(homeData: HomeDataModel) {
         print(homeData)
         self.homeData = homeData
@@ -57,15 +50,13 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         topAiringCollectionView.reloadData()
     }
     
-    @IBAction func onTopAiringViewAll(_ sender: Any) {
-        print("ontaopairing clicked")
-    }
+
     func didFailWithError(error: String) {
         print(error)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showAnimeDetail" {
+        if segue.identifier == "showAnimeDetail", let selectedAnime = selectedAnime {
             if let destinationVC = segue.destination as? AnimeDetailViewController {
                 destinationVC.animeModel = selectedAnime
             }
@@ -73,6 +64,7 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
     }
     
 }
+
 
 extension ViewController : UICollectionViewDataSource {
     
@@ -83,15 +75,17 @@ extension ViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == spotLightCollectionView){
             return homeData?.spotlights.count ?? 0
-        } else {
+        } else  if(collectionView == topAiringCollectionView){
             return homeData?.topAiring.count ?? 0
         }
+        
+        return 0;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(collectionView == spotLightCollectionView){
             
-            let cellView =  collectionView.dequeueReusableCell(withReuseIdentifier: "trendingCellView", for: indexPath) as! TrendingCollectionViewCell
+            let cellView =  collectionView.dequeueReusableCell(withReuseIdentifier: "spotlightCellView", for: indexPath) as! TrendingCollectionViewCell
             cellView.setData(model: homeData!.spotlights[indexPath.row])
             return cellView;
         } else if(collectionView == topAiringCollectionView){
@@ -105,6 +99,7 @@ extension ViewController : UICollectionViewDataSource {
     
    
 }
+
 
 extension ViewController: UIScrollViewDelegate, UICollectionViewDelegate {
     
