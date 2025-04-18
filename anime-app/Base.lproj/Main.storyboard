@@ -312,7 +312,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-bL-1Ob">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1335"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="725.66666666666663"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Qn-UP-2W4" userLabel="spotlightCollectionView">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="360"/>
@@ -431,7 +431,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hp3-7e-Dih">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="190" height="189"/>
+                                                                    <rect key="frame" x="0.0" y="1.6666666666666572" width="190" height="186"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="189" id="P97-14-iE5"/>
                                                                     </constraints>
@@ -465,7 +465,18 @@
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5EF-XJ-viS">
+                                                <rect key="frame" x="0.0" y="685.66666666666663" width="393" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="LN2-s9-pik"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="5EF-XJ-viS" secondAttribute="trailing" id="I4F-s4-A5n"/>
+                                            <constraint firstItem="5EF-XJ-viS" firstAttribute="leading" secondItem="iHd-bL-1Ob" secondAttribute="leading" id="fVQ-4r-TIv"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
