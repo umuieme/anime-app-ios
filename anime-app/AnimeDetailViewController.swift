@@ -138,7 +138,9 @@ class AnimeDetailViewController: UIViewController, AnimeDetailFetchDelegate {
             updateFavoriteView()
         }
     }
-    @IBAction func onViewMorePressed(_ sender: Any) {
-
+    @IBAction func onViewMorePressed(_ sender: UIButton) {
+        let isShowingMore = descriptionLabel.numberOfLines == 0
+        descriptionLabel.numberOfLines = isShowingMore ? 3 : 0
+        sender.setTitle(isShowingMore ? "View More" : "View Less", for: .normal)
     }
 }

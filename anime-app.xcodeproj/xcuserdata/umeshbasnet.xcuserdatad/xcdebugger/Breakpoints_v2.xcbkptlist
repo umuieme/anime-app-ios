@@ -274,36 +274,6 @@
             endingLineNumber = "99"
             landmarkName = "setupAnimeDetailView()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6AE974D7-61CB-4645-A370-7B76C5A741CD - 68e3b1d03d14c66d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "anime_app.AnimeDetailViewController.setupAnimeDetailView() -&gt; ()"
-                  moduleName = "anime-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/umeshbasnet/projects/humber/ios/anime-app-ios/anime-app/AnimeDetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100">
-               </Location>
-               <Location
-                  uuid = "6AE974D7-61CB-4645-A370-7B76C5A741CD - 68e3b1d03d14c66d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "anime_app.AnimeDetailViewController.setupAnimeDetailView() -&gt; ()"
-                  moduleName = "anime-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/umeshbasnet/projects/humber/ios/anime-app-ios/anime-app/AnimeDetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
