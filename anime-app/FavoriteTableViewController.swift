@@ -24,7 +24,12 @@ class FavoriteTableViewController: UITableViewController, FavoriteListChangeDele
     }
     
     func onChanged(favoriteList: [FavoriteAnime]) {
-        self.favoriteList = favoriteList
+//        self.favoriteList = favoriteList
+//        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        favoriteList = FavoriteManager.shared.fetchFavoriteData()
         tableView.reloadData()
     }
 
@@ -52,13 +57,16 @@ class FavoriteTableViewController: UITableViewController, FavoriteListChangeDele
         return true
     }
     
-
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            FavoriteManager.shared.removeFavoriteAnime(anime: favoriteList[indexPath.row])
-            favoriteList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            showConfirmationDialog(title: "Remove", message: "Remove anime from favorite list") { result in
+                if(result){
+                    FavoriteManager.shared.removeFavoriteAnime(anime: self.favoriteList[indexPath.row])
+                    self.favoriteList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }
+           
         }
     }
     
