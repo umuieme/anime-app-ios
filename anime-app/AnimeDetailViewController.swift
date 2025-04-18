@@ -7,7 +7,9 @@
 
 import UIKit
 
-class AnimeDetailViewController: UIViewController {
+class AnimeDetailViewController: UIViewController, AnimeDetailFetchDelegate {
+    
+    
 
     var animeModel: AnimeModel?
     let favoriteManager = FavoriteManager.shared
@@ -25,7 +27,23 @@ class AnimeDetailViewController: UIViewController {
 
     @IBOutlet weak var viewMoreDescriptionButton: UIButton!
 
+    @IBOutlet weak var japaneseTitleLabel: UILabel!
+    
+    @IBOutlet weak var synonymsLabel: UILabel!
+    
+    @IBOutlet weak var airedLabel: UILabel!
+    
+    @IBOutlet weak var premieredLabel: UILabel!
+    
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    @IBOutlet weak var statusLabel: UILabel!
+        
+    @IBOutlet weak var malScoreLabel: UILabel!
+    
     var isFavorite = false
+    
+    var animeDetail : AnimeDetailResults?
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -34,9 +52,10 @@ class AnimeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         containerScrollView.contentInsetAdjustmentBehavior = .never
-        print(animeModel)
         setData()
         // Do any additional setup after loading the view.
+        NetworkManager.shared.animeDetailFetchDelegate = self
+        
     }
 
     func setData() {
@@ -54,17 +73,42 @@ class AnimeDetailViewController: UIViewController {
             
             isFavorite = favoriteManager.isAnimeFavorite(id: animeModel.id)
             updateFavoriteView()
+            
+            NetworkManager.shared.fetchAnimeDetail(animeId: animeModel.id)
         }
 
     }
+    
+    
 
     override func viewDidLayoutSubviews() {
         backButton.layoutMargins.top = 100
 
     }
     
+    func didFetchAnimeDetail(anime: AnimeDetailResults) {
+        animeDetail = anime
+        setupAnimeDetailView()
+    }
+    
+    func didAnimeDetailFailWithError(error: String) {
+            
+    }
+    
+    func setupAnimeDetailView() {
+        if let animeInfo = animeDetail?.data?.animeInfo {
+            japaneseTitleLabel.text = animeInfo.Japanese
+            synonymsLabel.text = animeInfo.Synonyms
+            airedLabel.text = animeInfo.Aired
+            premieredLabel.text = animeInfo.Premiered
+            durationLabel.text = animeInfo.Duration
+            statusLabel.text = animeInfo.Status
+            genreLabel.text = animeInfo.Genres?.joined(separator: ", ")
+            malScoreLabel.text = animeInfo.MAL_Score
+        }
+    }
+    
     func updateFavoriteView(){
-//        bookmarkButton.imageView!.image = isFavorite ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
         bookmarkButton.setImage(isFavorite ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark"), for: .normal)
     }
 
@@ -93,5 +137,10 @@ class AnimeDetailViewController: UIViewController {
             isFavorite = favoriteManager.isAnimeFavorite(id: animeModel.id);
             updateFavoriteView()
         }
+    }
+    @IBAction func onViewMorePressed(_ sender: UIButton) {
+        let isShowingMore = descriptionLabel.numberOfLines == 0
+        descriptionLabel.numberOfLines = isShowingMore ? 3 : 0
+        sender.setTitle(isShowingMore ? "View More" : "View Less", for: .normal)
     }
 }
