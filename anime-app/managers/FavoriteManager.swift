@@ -67,7 +67,7 @@ class FavoriteManager {
     }
 
     func getFavoriteAnimeById(id: String) -> FavoriteAnime? {
-        fetchFavoriteData()
+//        fetchFavoriteData()
         let fetchRequest = FavoriteAnime.fetchRequest()
         
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)

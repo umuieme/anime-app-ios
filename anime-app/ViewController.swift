@@ -22,14 +22,7 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         containerScrollView.contentInsetAdjustmentBehavior = .never
         
-        let screenSize: CGSize = UIScreen.main.bounds.size
-        let cellWidth = floor(screenSize.width)
-        let cellHeight = CGFloat(360)
-        
-        let layout = spotLightCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-
-        
+        setupCaraousel()
         
         spotLightCollectionView.delegate = self
         spotLightCollectionView.dataSource = self
@@ -39,6 +32,30 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
         
         NetworkManager.shared.homeDataFetchDelegate = self
         NetworkManager.shared.fetchHomePage();
+    }
+    
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        print(spotLightPageController.currentPage)
+        coordinator.animate { _ in
+            self.spotLightCollectionView.collectionViewLayout.invalidateLayout()
+            self.setupCaraousel()
+        } completion: { _ in
+            self.spotLightCollectionView.scrollToItem(at: IndexPath(row: self.spotLightPageController.currentPage, section: 0), at: .left,animated: true)
+        }
+
+
+    }
+    
+    
+    func setupCaraousel() {
+        let screenSize: CGSize = UIScreen.main.bounds.size
+        let cellWidth = floor(screenSize.width)
+        let cellHeight = CGFloat(360)
+        
+        let layout = spotLightCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+
     }
     
 
@@ -54,7 +71,7 @@ class ViewController: UIViewController, HomeDataFetchDelegate {
     func didFailWithError(error: String) {
         print(error)
     }
-    
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAnimeDetail", let selectedAnime = selectedAnime {
             if let destinationVC = segue.destination as? AnimeDetailViewController {
