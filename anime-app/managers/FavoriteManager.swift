@@ -15,6 +15,7 @@ class FavoriteManager {
         .persistentContainer.viewContext
 
     var favoriteAnimeList: [String: FavoriteAnime] = [:]
+    var favoriteChnageDelegate: FavoriteListChangeDelegate?
 
     private func saveContext() {
         if context.hasChanges {
@@ -29,16 +30,13 @@ class FavoriteManager {
         }
     }
 
-    func fetchFavoriteData() {
+    func fetchFavoriteData() -> [FavoriteAnime] {
         do {
             let favoriteAnimeList = try context.fetch(
                 FavoriteAnime.fetchRequest())
-            for item in favoriteAnimeList {
-                print(
-                    "Saved Anime: \(item.id ?? "nil") - \(item.title ?? "nil")")
-            }
+            return favoriteAnimeList
         } catch {
-
+            return []
         }
     }
 
@@ -51,13 +49,13 @@ class FavoriteManager {
         favoriteAnime.detail = anime.description
         favoriteAnime.japanese_title = anime.japanese_title
         saveContext()
-        fetchFavoriteData()
+       favoriteChnageDelegate?.onChanged(favoriteList: fetchFavoriteData())
     }
 
     func removeFavoriteAnime(id: String) {
         let anime = getFavoriteAnimeById(id: id)
         if let anime = anime {
-            context.delete(anime)
+            removeFavoriteAnime(anime: anime)
         }
     }
 
@@ -65,7 +63,7 @@ class FavoriteManager {
 
         context.delete(anime)
         saveContext()
-
+        favoriteChnageDelegate?.onChanged(favoriteList: fetchFavoriteData())
     }
 
     func getFavoriteAnimeById(id: String) -> FavoriteAnime? {
